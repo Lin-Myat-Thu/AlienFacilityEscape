@@ -34,6 +34,7 @@ body{
 .navbar h2{
     font-family: "Jersey 25", sans-serif;
     font-size: 28px;
+    cursor: default;
 }
 .hamburger {
     font-size: 24px;
@@ -56,6 +57,67 @@ body{
     color: white;
     transform: scale(1.2);
     transition: 0.2s;
+}
+/* GAME LAYOUT */
+.game-wrapper {
+    display: flex;
+    padding: 30px;
+}
+.game-wrapper p {
+    font-family: "Jersey 25", sans-serif;
+}
+
+.stats-panel {
+    width: 25%;
+    padding: 20px;
+    border-right: 1px solid #00ccff;
+}
+
+.stats-panel h3 {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 30px;
+}
+.stats-panel p {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.story-panel {
+    width: 75%;
+    padding: 20px;
+}
+.story-panel p {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+/* HEALTH BAR */
+.health-container {
+    width: 100%;
+    height: 20px;
+    background: #330000;
+}
+
+#health-bar {
+    height: 100%;
+    width: 100%;
+    background: limegreen;
+    transition: width 0.5s;
+    margin: 10px 0;
+}
+
+/* TYPING CURSOR */
+#story-text::after {
+    content: "|";
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
 }
 
 /* SIDE MENU */
@@ -120,70 +182,6 @@ body{
     inset: 0;
     background: rgba(0, 0, 0, 0.6);
     z-index: 5;
-}
-
-
-/* GAME LAYOUT */
-.game-wrapper {
-    display: flex;
-    padding: 30px;
-}
-.game-wrapper p {
-    font-family: "Jersey 25", sans-serif;
-}
-
-.stats-panel {
-    width: 25%;
-    padding: 20px;
-    border-right: 1px solid #00ccff;
-}
-
-.stats-panel h3 {
-    font-family: "Jersey 25", sans-serif;
-    font-size: 30px;
-}
-.stats-panel p {
-    font-family: "Jersey 25", sans-serif;
-    font-size: 22px;
-    margin: 10px 0;
-}
-
-.story-panel {
-    width: 75%;
-    padding: 20px;
-}
-.story-panel p {
-    font-family: "Jersey 25", sans-serif;
-    font-size: 28px;
-    margin-bottom: 15px;
-}
-
-/* HEALTH BAR */
-.health-container {
-    width: 100%;
-    height: 20px;
-    background: #330000;
-}
-
-#health-bar {
-    height: 100%;
-    width: 100%;
-    background: limegreen;
-    transition: width 0.5s;
-    margin: 10px 0;
-}
-
-
-/* TYPING CURSOR */
-#story-text::after {
-    content: "|";
-    animation: blink 1s infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
 }
 
 
