@@ -1,0 +1,192 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;  
+}
+body{
+    color: hsl(192, 100%, 50%);
+}
+#scene-bg {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.6s ease, opacity 0.6s ease;
+    z-index: -1;
+}
+/* dark overlay for readability */
+#scene-bg::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.397);
+}
+
+/* NAVBAR */
+.navbar {
+    background: #000c14;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+}
+.navbar h2{
+    font-family: "Jersey 25", sans-serif;
+    font-size: 28px;
+}
+.hamburger {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.back-arrow {
+    font-size: 30px;
+    cursor: pointer;
+    color: #00ccff;
+}
+
+.back-arrow:hover {
+    color: white;
+    transform: scale(1.2);
+    transition: 0.2s;
+}
+
+/* SIDE MENU */
+.side-menu {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 230px;
+    height: 100%;
+    background: #000814;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: 0.3s;
+    z-index: 10;
+}
+
+.side-menu.active {
+    transform: translateX(0);
+}
+
+.side-menu button {
+    margin: 12px 0;
+    padding: 12px;
+    background: #001f2e;
+    border: 1px solid #00ccff;
+    color: #00ccff;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 19px;
+    font-family: "Jersey 25", sans-serif;
+}
+
+.side-menu button:hover {
+    background: #00ccff;
+    color: black;
+}
+
+/* CLOSE BUTTON */
+.menu-header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.close-btn {
+    font-size: 22px;
+    cursor: pointer;
+    color: #00ccff;
+}
+
+.close-btn:hover {
+    color: white;
+    transform: scale(1.2);
+    transition: 0.2s;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 5;
+}
+
+
+/* GAME LAYOUT */
+.game-wrapper {
+    display: flex;
+    padding: 30px;
+}
+.game-wrapper p {
+    font-family: "Jersey 25", sans-serif;
+}
+
+.stats-panel {
+    width: 25%;
+    padding: 20px;
+    border-right: 1px solid #00ccff;
+}
+
+.stats-panel h3 {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 30px;
+}
+.stats-panel p {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 22px;
+    margin: 10px 0;
+}
+
+.story-panel {
+    width: 75%;
+    padding: 20px;
+}
+.story-panel p {
+    font-family: "Jersey 25", sans-serif;
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+/* HEALTH BAR */
+.health-container {
+    width: 100%;
+    height: 20px;
+    background: #330000;
+}
+
+#health-bar {
+    height: 100%;
+    width: 100%;
+    background: limegreen;
+    transition: width 0.5s;
+    margin: 10px 0;
+}
+
+
+/* TYPING CURSOR */
+#story-text::after {
+    content: "|";
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+
+.hidden{
+    display: none;
+}

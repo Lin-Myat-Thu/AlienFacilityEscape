@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien Facility Escape</title>
+    <link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+25&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/game.css">
+</head>
+<body>
+    <!-- For Background -->
+    <div id="scene-bg"></div>
+    <!-- GAME CONTAINER -->
+    <div id="game">
+        <nav class="navbar">
+            <div class="nav-left">
+                <a href="index.html"><span id="backBtn" class="back-arrow">⬅</span></a>
+                <h2>Alien Facility Escape</h2>
+            </div>
+            <div id="menuBtn" class="hamburger">☰</div>
+        </nav>
+        <!-- Overlay -->
+        <div id="overlay" class="overlay hidden"></div>
+        <!-- Side Menu -->
+        <div id="sideMenu" class="side-menu">
+            <div class="menu-header">
+                <span id="closeBtn" class="close-btn">✖</span>
+            </div>
+            <button id="saveBtn">Save Game</button>
+            <button id="loadBtn">Load Game</button>
+            <button id="resetBtn">Reset Game</button>
+            <button id="musicToggleBtn">Mute Music</button>
+        </div>
+
+        <div class="game-wrapper">
+
+            <div class="stats-panel">
+                <h3>Health</h3>
+                <div class="health-container">
+                    <div id="health-bar"></div>
+                </div>
+
+                <h3>Inventory</h3>
+                <p id="inventory">None</p>
+            </div>
+
+            <div class="story-panel">
+                <p id="story-text"></p>
+                <div id="choices"></div>
+            </div>
+        </div>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="music/bg_music1.mp3" type="audio/mpeg">
+    </audio>
+    <script type="module" src="./JS/game.js"></script>
+</body>
+</html>

@@ -1,6 +1,11 @@
-body {
+*{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;  
+}
+
+body {
     background: radial-gradient(circle at center, #0f2027, #000814);
     color: white;
     font-family: 'Jersey 25', sans-serif;
