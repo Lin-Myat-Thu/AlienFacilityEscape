@@ -34,6 +34,7 @@ let typing = false;
 let typingInterval = null;
 let musicMuted = false;
 let guardsDefeated = false;
+let infectedDefeated = false;
 
 // ===============================
 // INITIALIZE GAME
@@ -309,9 +310,7 @@ function openDoor() {
         );
     }
 }
-// ===============================
-// HALLWAY SCENE
-// ===============================
+
 function hallwayScene() {
     currentScene = "hallway";
     clearChoices();
@@ -346,9 +345,6 @@ function sneakHallway() {
     );
 }
 
-// ===============================
-// CONTROL CENTER
-// ===============================
 function hackSystem() {
     changeBackground("bg_image/ControlCenter.jpeg");
     gameOver(
@@ -370,9 +366,7 @@ function investigateCenter() {
     );
 }
 
-// ===============================
-// EXIT DOOR SCENE
-// ===============================
+
 function exitDoorScene() {
     currentScene = "exitdoor";
     clearChoices();
@@ -454,6 +448,7 @@ function distractGuards() {
         );
     }
 }
+
 function checkTablet() {
     currentScene = "checktablet";
     clearChoices();
@@ -470,14 +465,165 @@ function findSurvivors() {
     currentScene = "findsurvivors";
     clearChoices();
     changeBackground("bg_image/GoBacktoHallway.png");
+
     typeText(
-        "You tighten your grip on the plasma gun. You won't leave them behind.Somewhere in the dark halls of this alien facility… others are still fighting to survive. You step back into the shadows — not as a victim, but as hope.",
+        "You tighten your grip on the plasma gun. You won't leave them behind. " +
+        "The hallway feels colder now... quieter. Too quiet. " +
+        "Your footsteps echo as you move deeper into the alien facility.",
         () => {
-            addChoice("To be Continued... (Restart Game)", restartGame);
+            addChoice("Follow the distant noise", followNoise);
+            addChoice("Search nearby rooms", searchRooms);
+        }
+    );
+}
+function followNoise() {
+    currentScene = "followNoise";
+    clearChoices();
+    changeBackground("bg_image/HumanInsideChamber.png");
+
+    typeText(
+        "You follow a faint metallic sound... clanking... dragging. " +
+        "Up ahead, you see movement. A human... barely alive, chained to the wall.",
+        () => {
+            addChoice("Free the survivor", freeSurvivor);
         }
     );
 }
 
+function freeSurvivor() {
+    currentScene = "freeSurvivor";
+    clearChoices();
+    changeBackground("bg_image/Rescue.png");
+
+    typeText(
+        "You rush forward and break the restraints. The survivor looks at you with relief..." +
+        "Suddenly, their eyes glow purple. Their body twitches violently.",
+        () => {
+            addChoice("Step back", infectedAttack);
+            addChoice("Try to help them", infectedAttack);
+        }
+    );
+}
+
+function infectedAttack() {
+    currentScene = "infectedAttack";
+    clearChoices();
+    changeBackground("bg_image/Infected.png");
+
+    typeText(
+        "The 'survivor' lets out an inhuman scream and lunges at you. " +
+        "It's not human anymore... it's infected.",
+        () => {
+            addChoice("Fight it", fightInfected);
+            addChoice("Run away", escapeInfected);
+        }
+    );
+}
+function fightInfected() {
+    currentScene = "fightInfected";
+    clearChoices();
+
+    //  If already defeated (important for load)
+    if (infectedDefeated) {
+        changeBackground("bg_image/InfectedDead.png");
+
+        typeText(
+            "The infected creature lies motionless on the ground. You already defeated it." +
+            " The silence feels heavier now.",
+            () => {
+                addChoice("Continue searching", survivorGroup);
+            }
+        );
+        return;
+    }
+
+    //  No gun = instant death
+    if (!hasGun) {
+        damagePlayer(100);
+        gameOver("You tried to fight barehanded. The infected tears you apart.");
+        return;
+    }
+
+    //  First-time fight
+    changeBackground("bg_image/InfectedDead.png");
+
+    damagePlayer(40); //  only 20 damage
+
+    infectedDefeated = true; //  mark as defeated
+
+    typeText(
+        "You fire your plasma gun. The creature jerks violently before collapsing." +
+        " You take a hit during the struggle, but survive." +
+        " This confirms your fear... the aliens are experimenting on humans.",
+        () => {
+            addChoice("Continue searching", survivorGroup);
+        }
+    );
+}
+
+function escapeInfected() {
+    currentScene = "escapeInfected";
+    clearChoices();
+    changeBackground("bg_image/GoBacktoHallway.png");
+
+    typeText(
+        "You sprint away, heart pounding. The screams fade behind you..." +
+        "You can't save everyone.",
+        () => {
+            addChoice("Keep searching", survivorGroup);
+        }
+    );
+}
+
+function searchRooms() {
+    currentScene = "searchRooms";
+    clearChoices();
+    changeBackground("bg_image/RoomSearch.png");
+
+    typeText(
+        "You carefully search nearby rooms. Most are empty... destroyed..." +
+        "You also find creatures that look like humans."+
+        "Then you hear whispers. Real voices.",
+        () => {
+            addChoice("Open the door", survivorGroup);
+        }
+    );
+}
+
+function survivorGroup() {
+    currentScene = "survivorGroup";
+    clearChoices();
+    changeBackground("bg_image/Survivors.jpeg");
+
+    typeText(
+        "You find a group of survivors hiding. Weak... scared... but alive." +
+        "They look at you like you're their only hope." +
+        "One of them speaks: 'There's an escape ship... but it's heavily guarded.'",
+        () => {
+            addChoice("Lead them to escape", heroEnding);
+        }
+    );
+}
+
+// ===============================
+//  Hero Ending
+// ===============================
+function heroEnding() {
+    currentScene = "hero";
+    clearChoices();
+    changeBackground("bg_image/HeroEscape.jpeg");
+
+    typeText(
+        "You lead the survivors through the dark halls. Fighting. Running. Surviving." +
+        "Some fall... but most make it." +
+        "You reach the escape ship together." +
+        "You didn't just survive." +
+        "You saved humanity's hope.",
+        () => {
+            addChoice("Play Again", restartGame);
+        }
+    );
+}
 
 
 // ===============================
@@ -581,7 +727,8 @@ saveBtn.onclick = () => {
         holeRevealed,
         currentScene,
         health,
-        guardsDefeated
+        guardsDefeated,
+        infectedDefeated
     };
 
     localStorage.setItem("cyberEscapeSave", JSON.stringify(gameData));
@@ -605,6 +752,7 @@ loadBtn.onclick = () => {
     currentScene = data.currentScene;
     health = data.health;
     guardsDefeated = data.guardsDefeated;
+    infectedDefeated = data.infectedDefeated;
     
 
     updateHealthBar();
@@ -627,6 +775,15 @@ loadBtn.onclick = () => {
         case "fightguards": fightGuards(); break;
         case "checktablet": checkTablet(); break;
         case "findsurvivors": findSurvivors(); break;
+        case "findsurvivors": findSurvivors(); break;
+        case "followNoise": followNoise(); break;
+        case "freeSurvivor": freeSurvivor(); break;
+        case "infectedAttack": infectedAttack(); break;
+        case "fightInfected": fightInfected(); break;
+        case "escapeInfected": escapeInfected(); break;
+        case "searchRooms": searchRooms(); break;
+        case "survivorGroup": survivorGroup(); break;
+        case "hero": heroEnding(); break;
         case "victory": victoryEnding(); break;
         case "selfish": selfishEnding(); break;
     }
