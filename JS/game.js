@@ -286,7 +286,7 @@ function enterTunnel() {
     const checkGun = hasGun;
     changeBackground(
         checkGun 
-        ? "bg_image/TunnelNoGun.png"
+        ? "bg_image/TunnelnoGun.png"
         : "bg_image/TunnelWithGun.jpeg"
     );
 
