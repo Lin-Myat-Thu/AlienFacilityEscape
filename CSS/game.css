@@ -15,7 +15,7 @@ body{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    transition: background-image 0.6s ease, opacity 0.6s ease;
+    transition: opacity 0.2s ease-in-out;
     z-index: -1;
 }
 /* dark overlay for readability */
@@ -23,7 +23,7 @@ body{
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.493);
+    background: rgba(0, 0, 0, 0.586);
 }
 
 /* NAVBAR */

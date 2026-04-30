@@ -37,21 +37,77 @@ let guardsDefeated = false;
 let infectedDefeated = false;
 
 // ===============================
+// IMAGE PRELOAD SYSTEM
+// ===============================
+const imageList = [
+    "bg_image/Start.png",
+    "bg_image/AccessKeyWithHole.png",
+    "bg_image/NoAccessKeyAndHole.png",
+    "bg_image/AccessKeyWithNoHole.png",
+    "bg_image/OpenDoorWithHole.png",
+    "bg_image/OpenDoorNoHole.png",
+    "bg_image/TunnelNoGun.png",
+    "bg_image/TunnelWithGun.jpeg",
+    "bg_image/DeadEnd.png",
+    "bg_image/Hallway.jpeg",
+    "bg_image/ControlCenter.jpeg",
+    "bg_image/NoTablet.png",
+    "bg_image/AlienGuardDoor.png",
+    "bg_image/AlienMoveCloser.png",
+    "bg_image/AlienDie.png",
+    "bg_image/ExitDoor.png",
+    "bg_image/CheckTablet.png",
+    "bg_image/GoBacktoHallway.png",
+    "bg_image/HumanInsideChamber.png",
+    "bg_image/Rescue.png",
+    "bg_image/Infected.png",
+    "bg_image/InfectedDead.png",
+    "bg_image/RoomSearch.png",
+    "bg_image/Survivors.jpeg",
+    "bg_image/HeroEscape.jpeg",
+    "bg_image/ExistDoorOpen.png"
+];
+
+function preloadImages(list, callback) {
+    let loaded = 0;
+
+    list.forEach(src => {
+        const img = new Image();
+        img.src = src;
+
+        img.onload = img.onerror = () => {
+            loaded++;
+            if (loaded === list.length) {
+                console.log("All images preloaded");
+                callback();
+            }
+        };
+    });
+}
+
+// ===============================
 // INITIALIZE GAME
 // ===============================
 window.onload = () => {
-    changeBackground("bg_image/Start.png");
-    updateInventory();
-    updateHealthBar();
-    startMusic();
-    startRoom();
+    preloadImages(imageList, () => {
+        changeBackground("bg_image/Start.png");
+        updateInventory();
+        updateHealthBar();
+        startMusic();
+        startRoom();
+    });
 };
 
 // ===============================
 // BACKGROUND
 // ===============================
 function changeBackground(imagePath) {
-    sceneBg.style.backgroundImage = `url('${imagePath}')`;
+    sceneBg.style.opacity = 0;
+
+    setTimeout(() => {
+        sceneBg.style.backgroundImage = `url('${imagePath}')`;
+        sceneBg.style.opacity = 1;
+    }, 150);
 }
 
 // ===============================
@@ -774,7 +830,6 @@ loadBtn.onclick = () => {
         case "exitdoor": exitDoorScene(); break;
         case "fightguards": fightGuards(); break;
         case "checktablet": checkTablet(); break;
-        case "findsurvivors": findSurvivors(); break;
         case "findsurvivors": findSurvivors(); break;
         case "followNoise": followNoise(); break;
         case "freeSurvivor": freeSurvivor(); break;
