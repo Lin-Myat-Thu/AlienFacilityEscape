@@ -746,6 +746,8 @@ function resetGameState() {
     hasGun = false;
     hasKeycard = false;
     hasTablet = false;
+    guardsDefeated = false;
+    infectedDefeated = false;
     currentScene = "room";
     updateInventory();
 }
